@@ -1,25 +1,42 @@
-class Stack {
+class Queue {
   constructor() {
-    this.array = [];
+    this.head = null;
+    this.tail = null;
   }
 
-  push(element) {
-    this.array.push(element);
+  getUnderlyingList() {
+    return this.tail;
   }
 
-  pop() {
-    return this.array.pop();
+  enqueue(value) {
+    let node = new ListNode(value);
+
+    if (!this.tail) {
+      this.head = node;
+      this.tail = node;
+    } else {
+      //node.next = this.tail;
+      //this.tail = node;
+      this.head.next = node;
+      this.head = node;
+    }
   }
 
-  peek() {
-    return this.array[this.array.length - 1];
+  dequeue() {
+    let value = this.tail.value;
+    this.tail = this.tail.next;
+    return value;
   }
 }
 
-const stack = new Stack();
+function ListNode(x) {
+  this.value = x;
+  this.next = null;
+}
 
-stack.push(1); // adds the element to the stack
-
-console.log(stack.peek());
-console.log(stack.pop());
-console.log(stack.pop());
+const queue = new Queue();
+queue.enqueue(5);
+queue.enqueue(6);
+queue.enqueue(7);
+console.log('5', queue.dequeue());
+console.log('6', queue.dequeue());
