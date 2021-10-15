@@ -91,7 +91,7 @@ module.exports = class BinarySearchTree {
     if (dataRemove === nodeCheck.data) {
       if (!nodeCheck.left) return nodeCheck.right;
       if (!nodeCheck.right) return nodeCheck.left;
-      nodeCheck.data = this.min(nodeCheck.right);
+      nodeCheck.data = this.getMinData(nodeCheck.right);
       nodeCheck.right = this.removeNode(nodeCheck.data, nodeCheck.right);
     }
     if (dataRemove > nodeCheck.data)

@@ -22,19 +22,11 @@ class BinarySearchTree {
   }
 
   find(data) {
-    return this.findNode(data, this._root)[0];
+    return this.findNode(data, this._root);
   }
 
   remove(data) {
     if (this.find(data) === null) return;
-    //let nodeToDelete = this.findNode(data, this._root)[0];
-    //let parentNode = this.findNode(data, this._root)[1];
-
-    //if (!nodeToDelete.left && !nodeToDelete.right) {
-    //  nodeToDelete = null;
-    //  return;
-    //}
-
     this._root = this.removeNode(data, this._root);
   }
 
@@ -63,14 +55,14 @@ class BinarySearchTree {
     }
   }
 
-  findNode(dataFind, nodeCheck, nodeParent) {
-    if (nodeCheck === null) return [null, null];
-    if (nodeCheck.data === dataFind) return [nodeCheck, nodeParent];
+  findNode(dataFind, nodeCheck) {
+    if (nodeCheck === null) return null;
+    if (nodeCheck.data === dataFind) return nodeCheck;
 
     if (dataFind > nodeCheck.data)
-      return this.findNode(dataFind, nodeCheck.right, nodeCheck);
+      return this.findNode(dataFind, nodeCheck.right);
     if (dataFind < nodeCheck.data)
-      return this.findNode(dataFind, nodeCheck.left, nodeCheck);
+      return this.findNode(dataFind, nodeCheck.left);
   }
 
   getMaxData(checkNode) {
@@ -91,7 +83,7 @@ class BinarySearchTree {
     if (dataRemove === nodeCheck.data) {
       if (!nodeCheck.left) return nodeCheck.right;
       if (!nodeCheck.right) return nodeCheck.left;
-      nodeCheck.data = this.min(nodeCheck.right);
+      nodeCheck.data = this.getMinData(nodeCheck.right);
       nodeCheck.right = this.removeNode(nodeCheck.data, nodeCheck.right);
     }
     if (dataRemove > nodeCheck.data)
@@ -111,12 +103,22 @@ function Node(data) {
 const tree = new BinarySearchTree();
 tree.add(9);
 tree.add(14);
-tree.add(54);
 tree.add(2);
 tree.add(6);
+tree.add(128);
 tree.add(8);
 tree.add(31);
+tree.add(54);
 tree.add(1);
-tree.remove(6);
-tree.remove(2);
-console.log(tree.min(), 1);
+tree.remove(14);
+tree.remove(8);
+tree.remove(9);
+console.log(tree.has(14), false);
+console.log(tree.has(8), false);
+console.log(tree.has(9), false);
+console.log(tree.has(2), true);
+console.log(tree.has(6), true);
+console.log(tree.has(128), true);
+console.log(tree.has(31), true);
+console.log(tree.has(54), true);
+console.log(tree.has(1), true);
